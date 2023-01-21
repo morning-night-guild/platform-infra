@@ -6,7 +6,7 @@ cat << EOF > k8s/templates/secret/${secret}.yaml
 apiVersion: v1
 kind: Secret
 metadata:
-name: platform-${secret}
+    name: platform-${secret}
 type: Opaque
 data:
     ${secret}: ""
