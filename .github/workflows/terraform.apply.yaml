@@ -1,0 +1,37 @@
+name: terraform apply
+run-name: ${{ github.ref_name }} by @${{ github.actor }} ${{ github.workflow }}
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/terraform.apply.yaml
+      - '**.tf'
+      - '**.hcl'
+      - '**.template'
+env:
+  COCKROACH_API_KEY: ${{ secrets.COCKROACH_API_KEY }}
+  TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_CLOUD_API_TOKEN }}
+  TF_VAR_env: prod
+  TF_VAR_sql_user_password: ${{ secrets.COCKROACH_SQL_USER_PASSWORD }}
+jobs:
+  apply:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: terraform
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install gettext
+        run: sudo apt-get install gettext
+      - name: Create backend.tf
+        env:
+          ENV: ${{ env.TF_VAR_env }}
+        run: envsubst '$$ENV' < backend.tf.template > backend.tf
+      - name: Confirm backend.tf
+        run: cat backend.tf
+      - name: Terraform init
+        run: terraform init
+      - name: Terraform apply
+        run: terraform apply -auto-approve
