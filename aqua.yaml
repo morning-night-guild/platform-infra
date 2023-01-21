@@ -6,5 +6,5 @@ registries:
 packages:
   - name: FiloSottile/age@v1.0.0
   - name: google/yamlfmt@v0.7.1
-  - name: mikefarah/yq@v4.30.5
+  - name: mikefarah/yq@v4.30.8
   - name: mozilla/sops@v3.7.3
