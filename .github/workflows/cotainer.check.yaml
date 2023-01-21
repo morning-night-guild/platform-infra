@@ -1,0 +1,22 @@
+name: container check
+run-name: ${{ github.ref_name }} by @${{ github.actor }} ${{ github.workflow }}
+on:
+  pull_request:
+    paths:
+      - .github/workflows/container.check.yaml
+      - k8s/templates/deployment.yaml
+      - k8s/env/**.yaml
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install yq
+        run: wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O yq && sudo chmod +x yq
+      - name: Docker pull
+        run: |
+          organization=$(yq '.image.organization' k8s/values.yaml)
+          repository=$(yq '.image.repository' k8s/values.yaml)
+          tag=$(yq '.image.tag' k8s/env/prod/values.yaml)
+          docker pull ${organization}/${repository}:${tag}

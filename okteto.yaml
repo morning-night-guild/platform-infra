@@ -1,0 +1,3 @@
+deploy:
+  - sh okteto/sops.sh
+  - sh okteto/prod.sh
