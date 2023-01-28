@@ -1,4 +1,4 @@
 env: prod
 image:
-  tag: 2023-01-27-15-09-38
+  tag: 2023-01-28-10-50-05
 cors_allow_origins: https://platform-lovat.vercel.app
