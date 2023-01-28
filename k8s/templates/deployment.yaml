@@ -23,6 +23,8 @@ spec:
               value: "{{ .Values.env }}"
             - name: PORT
               value: "8080"
+            - name: CORS_ALLOW_ORIGINS
+              value: "{{ .Values.cors_allow_origins }}"
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
