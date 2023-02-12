@@ -4,8 +4,7 @@ on:
   pull_request:
     paths:
       - .github/workflows/container.check.yaml
-      - k8s/templates/deployment.yaml
-      - k8s/env/**.yaml
+      - charts/**/*.yaml
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -16,7 +15,9 @@ jobs:
         run: wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O yq && sudo chmod +x yq
       - name: Docker pull
         run: |
-          organization=$(yq '.image.organization' k8s/values.yaml)
-          repository=$(yq '.image.repository' k8s/values.yaml)
-          tag=$(yq '.image.tag' k8s/env/prod/values.yaml)
-          docker pull ${organization}/${repository}:${tag}
+          for chart in $(find charts -mindepth 1 -maxdepth 1 -type d) ; do
+            organization=$(yq '.image.organization' ${chart}/values.yaml)
+            repository=$(yq '.image.repository' ${chart}/values.yaml)
+            tag=$(yq '.image.tag' ${chart}/values.yaml)
+            docker pull ${organization}/${repository}:${tag}
+          done

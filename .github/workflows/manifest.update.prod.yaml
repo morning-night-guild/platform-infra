@@ -1,0 +1,49 @@
+name: manifest update prod
+run-name: ${{ github.ref_name }} by @${{ github.actor }} ${{ github.workflow }}
+on:
+  repository_dispatch:
+    types:
+      - manifest-update-prod
+env:
+  TAG: ${{ github.event.client_payload.tag }}
+  BRANCH_NAME: release/${{ github.event.client_payload.tag }}
+jobs:
+  update:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate token
+        id: generate-token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.BOT_GITHUB_APP_ID }}
+          private_key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+      - name: Update manifest
+        run: |
+          for chart in $(find charts -mindepth 1 -maxdepth 1 -type d) ; do
+            yq '.image.tag=env(TAG)' ${chart}/values.yaml > ${chart}/values.yaml.tmp && mv ${chart}/values.yaml.tmp ${chart}/values.yaml;
+          done
+      - name: Checkout branch
+        run: |
+          git branch ${{ env.BRANCH_NAME }}
+          git checkout ${{ env.BRANCH_NAME }}
+      - name: Git push
+        run: |
+          git config --global credential.helper 'github-apps -privatekey ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }} -appid ${{ secrets.BOT_GITHUB_APP_ID }} -login ${{ github.repository_owner }}'
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "update image tag ${{ github.event.client_payload.tag }}"
+          git push --set-upstream origin ${{ env.BRANCH_NAME }}
+      - name: Create release pr
+        id: create-release-pr
+        run: |
+          export GH_TOKEN=${{ steps.generate-token.outputs.token }}
+          url=$(gh pr create --base main --title "Release ${{ github.event.client_payload.tag }}" --body "" --label release)
+          echo "url=${url}" >> $GITHUB_OUTPUT
+      - name: Notice slack
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\": \"<!channel>\n\nリリース<${{ steps.create-release-pr.outputs.url }}|PR>が作成されたよ♪\"}" ${{ secrets.SLACK_WEBHOOKS_URL }}

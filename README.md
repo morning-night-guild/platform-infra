@@ -20,37 +20,44 @@ make tool
     ```
 1. set secret key as name `SOPS_AGE_KEY` to `Settings` > `Secrets` in `Octeto`
 
+## create app
+
+1. create helm charts
+
+```shell
+helm create <app-name>
+```
+
 ## add secret manifest
 
-1. execute `make secret secret=${secret}`  
+1. execute `make secret chart=${chart} secret=${secret}`  
     ex)
     ```bash
-    make secret secret=password
+    make secret chart=app secret=password
     ```
-1. set in the secret value in `k8s/templates/secret/${secret}.in.txt`
-1. execute `make encrypt secret=${secret}`  
+1. set in the secret value in `charts/${chart}/templates/secret/${secret}.in.txt`
+1. execute `make encrypt chart=${chart} secret=${secret}`  
     ex)
     ```bash
-    make encrypt secret=password
-    ```
-1. fill in `./sops --decrypt --in-place k8s/templates/secret/{secret}.yaml` to `octeto/sops.sh`
-
-## change secret
-
-1. change `k8s/templates/secret/${secret}.in.txt`
-1. execute `make encrypt secret=${secret}`  
-    ex)
-    ```bash
-    make encrypt secret=password
+    make encrypt chart=app secret=password
     ```
 
 ## change secret
 
-1. set in the secret value in `k8s/templates/secret/${secret}.in.txt`
-1. execute `make encrypt secret=${secret}`  
+1. change `charts/${chart}/templates/secret/${secret}.in.txt`
+1. execute `make encrypt chart=${chart} secret=${secret}`  
     ex)
     ```bash
-    make encrypt secret=password
+    make encrypt chart=app secret=password
+    ```
+
+## change secret
+
+1. set in the secret value in `charts/${chart}/templates/secret/${secret}.in.txt`
+1. execute `make encrypt chart=${chart} secret=${secret}`  
+    ex)
+    ```bash
+    make encrypt chart=app secret=password
     ```
 
 ## confirm secret @Local
@@ -58,12 +65,12 @@ make tool
     ```bash
     SOPS_AGE_KEY=xxx
     ```
-1. execute `make decrypt secret=${secret}`  
+1. execute `make decrypt chart=${chart} secret=${secret}`  
     ex)  
     ```bash
-    make make decrypt secret=password
+    make decrypt chart=app secret=password
     ```
-1. confirm `k8s/templates/secret/${secret}.out.txt`
+1. confirm `charts/${chart}/templates/secret/${secret}.out.txt`
 
 # platform-terraform
 
