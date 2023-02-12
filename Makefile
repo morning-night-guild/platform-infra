@@ -17,21 +17,25 @@ ymlfmt: ## Fromat yaml
 helmlint: ## Lint helm chart
 	@helm lint k8s
 
+.PHONY: chart
+chart: ## Create helm chart. ex) make chart chart=app
+	@(cd charts && helm create ${chart})
+
 .PHONY: key
 key: ## Generate key
 	@age-keygen
 
 .PHONY: secret
-secret: ## Create kubernates secret yaml. ex) make secret secret=password
-	@script/secret.sh ${secret}
+secret: ## Create kubernates secret yaml. ex) make secret chart=app secret=password
+	@script/secret.sh ${chart} ${secret}
 
 .PHONY: encrypt
-encrypt: ## Encrypt kubernates secret. ex) make encrypt secret=password
-	@script/encrypt.sh ${secret}
+encrypt: ## Encrypt kubernates secret. ex) make encrypt chart=app secret=password
+	@script/encrypt.sh ${chart} ${secret}
 
 .PHONY: decrypt
-decrypt: ## Decrypt kubernates secret. ex) make decrypt secret=password
-	@script/decrypt.sh ${secret}
+decrypt: ## Decrypt kubernates secret. ex) make decrypt chart=app secret=password
+	@script/decrypt.sh ${chart} ${secret}
 
 .PHONY: tfinit
 tfinit: ## Terraform initialize
