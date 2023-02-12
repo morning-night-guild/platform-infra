@@ -20,7 +20,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          token: ${{ steps.generate_token.outputs.token }}
+          token: ${{ steps.generate-token.outputs.token }}
       - name: Update manifest
         run: |
           for chart in $(find charts -mindepth 1 -maxdepth 1 -type d) ; do
@@ -39,11 +39,11 @@ jobs:
           git commit -m "update image tag ${{ github.event.client_payload.tag }}"
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
       - name: Create release pr
-        id: create_release_pr
+        id: create-release-pr
         run: |
-          export GH_TOKEN=${{ steps.generate_token.outputs.token }}
+          export GH_TOKEN=${{ steps.generate-token.outputs.token }}
           url=$(gh pr create --base main --title "Release ${{ github.event.client_payload.tag }}" --body "" --label release)
           echo "url=${url}" >> $GITHUB_OUTPUT
       - name: Notice slack
         run: |
-          curl -X POST -H 'Content-type: application/json' --data "{\"text\": \"<!channel>\n\nリリース<${{ steps.create_release_pr.outputs.url }}|PR>が作成されたよ♪\"}" ${{ secrets.SLACK_WEBHOOKS_URL }}
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\": \"<!channel>\n\nリリース<${{ steps.create-release-pr.outputs.url }}|PR>が作成されたよ♪\"}" ${{ secrets.SLACK_WEBHOOKS_URL }}
