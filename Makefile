@@ -1,20 +1,24 @@
 include .secret.env
 export
 
+.PHONY: help
+help: ## Display this help screen
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+
 .PHONY: tool
-tool:
+tool: ## Instal tool
 	@aqua i
 
 .PHONY: ymlfmt
-ymlfmt: ## YAML format
+ymlfmt: ## Fromat yaml
 	@yamlfmt
 
 .PHONY: helmlint
-helmlint:
+helmlint: ## Lint helm chart
 	@helm lint k8s
 
 .PHONY: key
-key:
+key: ## Generate key
 	@age-keygen
 
 .PHONY: secret
@@ -39,13 +43,9 @@ tfmt: ## Terraform format
 
 .PHONY: tflint
 tflint: ## Terraform format check and terraform validate
-	@terraform fmt -recursive -check && \
-	terraform validate
+	@terraform fmt -recursive -check
+	@terraform validate
 
 .PHONY: tfdev
 tfdev: ## Make terraform develop backend.tf
 	@(cd terraform && ENV=dev envsubst '$$ENV' < backend.tf.template > backend.tf)
-
-.PHONY: help
-help: ## Display this help screen
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
