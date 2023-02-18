@@ -27,9 +27,7 @@ resource "vercel_project" "vercel_project" {
   name           = "${var.env}-morning-night-guild-platform"
   framework      = "vite"
   team_id        = var.vercel_team_id
-  root_directory = "frontend"
   build_command  = "yarn build"
-  ignore_command = "sh vercel-deploy-check.sh"
   git_repository = {
     type              = "github"
     repo              = var.github_repository
