@@ -92,3 +92,21 @@ brew install hashicorp/tap/terraform
 ```bash
 brew install gettext
 ```
+
+## Update .terraform.lock.hcl
+
+.secret.env
+```
+TF_TOKEN_app_terraform_io=*********
+```
+
+```bash
+make tfdev
+make tfinit
+```
+
+## Q&A
+
+Q. What if you want to delete the resource for each provider?
+
+A. If the provider is deleted, the resource cannot be deleted. Let's remove the resource first. and merge. Then remove the provider.
