@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 
-chart+$1
+chart=$1
 
 secret=$2
 
