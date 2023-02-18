@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: platform-app-api
+  labels:
+    app: platform-app-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: platform-app-api
+  template:
+    metadata:
+      labels:
+        app: platform-app-api
+    spec:
+      initContainers:
+        - name: platform-app-core-health
+          image: busybox:1.36.0-uclibc
+          command: ['sh', '-c', "until nc platform-app-core 8080; do echo waiting for platform-app-core; sleep 2; done; echo healthy platform-app-core"]
+      containers:
+        - name: platform-app-api
+          image: "{{ .Values.image.organization }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          env:
+            - name: ENV
+              value: "{{ .Values.env }}"
+            - name: PORT
+              value: "8080"
+            - name: APP_CORE_URL
+              value: "http://platform-app-core:8080"
+            - name: CORS_ALLOW_ORIGINS
+              value: "{{ .Values.cors_allow_origins }}"
+            - name: NEWRELIC_APP_NAME
+              value: ""
+            - name: NEWRELIC_LICENSE
+              value: ""
+          resources:
+            limits:
+              cpu: "1"
+              memory: 128Mi

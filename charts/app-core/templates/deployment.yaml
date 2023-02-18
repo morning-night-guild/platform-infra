@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: platform-app-core
+  labels:
+    app: platform-app-core
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: platform-app-core
+  template:
+    metadata:
+      labels:
+        app: platform-app-core
+    spec:
+      containers:
+        - name: platform-app-core
+          image: "{{ .Values.image.organization }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          env:
+            - name: ENV
+              value: "{{ .Values.env }}"
+            - name: PORT
+              value: "8080"
+            - name: CORS_ALLOW_ORIGINS
+              value: "{{ .Values.cors_allow_origins }}"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: platform-secret-database-url
+                  key: database-url
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: platform-secret-api-key
+                  key: api-key
+            - name: NEWRELIC_APP_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: platform-secret-newrelic-app-name
+                  key: newrelic-app-name
+            - name: NEWRELIC_LICENSE
+              valueFrom:
+                secretKeyRef:
+                  name: platform-secret-newrelic-license
+                  key: newrelic-license
+          resources:
+            limits:
+              cpu: "1"
+              memory: 256Mi

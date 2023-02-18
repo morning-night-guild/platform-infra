@@ -1,0 +1,7 @@
+# environment
+env: prod
+# container image
+image:
+  organization: morningnightguild
+  repository: platform-app-core
+  tag: latest
