@@ -24,7 +24,7 @@ provider "vercel" {
 }
 
 resource "vercel_project" "vercel_project" {
-  name           = var.env + "-morning-night-guild-platform"
+  name           = "${var.env}-morning-night-guild-platform"
   framework      = "vite"
   team_id        = var.vercel_team_id
   root_directory = "frontend"
