@@ -28,6 +28,11 @@ spec:
               value: "8080"
             - name: APP_CORE_URL
               value: "http://platform-app-core:8080"
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: platform-secret-api-key
+                  key: api-key
             - name: CORS_ALLOW_ORIGINS
               value: "{{ .Values.cors_allow_origins }}"
             - name: NEWRELIC_APP_NAME

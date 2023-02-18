@@ -29,11 +29,6 @@ spec:
                 secretKeyRef:
                   name: platform-secret-database-url
                   key: database-url
-            - name: API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: platform-secret-api-key
-                  key: api-key
             - name: NEWRELIC_APP_NAME
               valueFrom:
                 secretKeyRef:
