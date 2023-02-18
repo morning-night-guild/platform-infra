@@ -33,6 +33,7 @@ resource "vercel_project" "vercel_project" {
   git_repository = {
     type = "github"
     repo = var.github_repository
+    production_branch = "main"
   }
 }
 
