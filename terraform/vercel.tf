@@ -36,7 +36,7 @@ resource "vercel_project" "vercel_project" {
   }
 }
 
-resource "vercel_project_environment_variable" "env_api_endpoint" {
+resource "vercel_project_environment_variable" "env_appapi_endpoint" {
   project_id = vercel_project.vercel_project.id
   team_id    = var.vercel_team_id
   key        = "VITE_SERVICE_ENDPOINT"
