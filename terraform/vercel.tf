@@ -22,15 +22,3 @@ variable "vercel_team_id" {
 provider "vercel" {
   api_token = var.vercel_api_token
 }
-
-resource "vercel_project" "vercel_project" {
-  name          = "${var.env}-morning-night-guild-platform-web"
-  framework     = "vite"
-  team_id       = var.vercel_team_id
-  build_command = "yarn build"
-  git_repository = {
-    type              = "github"
-    repo              = var.github_repository
-    production_branch = "main"
-  }
-}
