@@ -14,7 +14,7 @@ env:
   TF_VAR_sql_user_password: ${{ secrets.COCKROACH_SQL_USER_PASSWORD }}
   TF_VAR_vercel_api_token: ${{ secrets.VERCEL_API_TOKEN }}
   TF_VAR_vercel_team_id: ${{ secrets.VERCEL_TEAM_ID }}
-  TF_VAR_github_repository: ${{ env.GITHUB_REPOSITORY }}
+  TF_VAR_github_repository: ${{ secrets.VERCEL_GITHUB_REPOSITORY }}
   TF_VAR_appapi_endpoint: ${{ secrets.APPAPI_ENDPOINT }}
 jobs:
   preview:
