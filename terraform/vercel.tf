@@ -24,10 +24,10 @@ provider "vercel" {
 }
 
 resource "vercel_project" "vercel_project" {
-  name           = "${var.env}-morning-night-guild-platform"
-  framework      = "vite"
-  team_id        = var.vercel_team_id
-  build_command  = "yarn build"
+  name          = "${var.env}-morning-night-guild-platform"
+  framework     = "vite"
+  team_id       = var.vercel_team_id
+  build_command = "yarn build"
   git_repository = {
     type              = "github"
     repo              = var.github_repository
