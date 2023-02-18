@@ -4,6 +4,6 @@ env: prod
 image:
   organization: morningnightguild
   repository: platform-app-api
-  tag: 2023-02-18-08-38-04
+  tag: 2023-02-18-15-07-40
 # cors
 cors_allow_origins: https://platform-lovat.vercel.app
