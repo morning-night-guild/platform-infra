@@ -34,13 +34,3 @@ resource "vercel_project" "vercel_project" {
     production_branch = "main"
   }
 }
-
-resource "vercel_project_environment_variable" "appapi_endpoint" {
-  project_id = vercel_project.vercel_project.id
-  team_id    = var.vercel_team_id
-  key        = "VITE_SERVICE_ENDPOINT"
-  value      = var.appapi_endpoint
-  target     = ["production"]
-}
-
-
