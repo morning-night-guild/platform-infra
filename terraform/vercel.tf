@@ -31,8 +31,8 @@ resource "vercel_project" "vercel_project" {
   build_command  = "yarn build"
   ignore_command = "sh vercel-deploy-check.sh"
   git_repository = {
-    type = "github"
-    repo = var.github_repository
+    type              = "github"
+    repo              = var.github_repository
     production_branch = "main"
   }
 }
