@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: platform-app-api
+  labels:
+    app: platform-app-api
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+spec:
+  selector:
+    app: platform-app-api
+  ports:
+    - protocol: TCP
+      port: 8080
