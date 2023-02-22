@@ -42,8 +42,9 @@ jobs:
         id: create-release-pr
         run: |
           export GH_TOKEN=${{ steps.generate-token.outputs.token }}
-          url=$(gh pr create --base main --title "Release ${{ github.event.client_payload.tag }}" --body "" --label release)
+          body="Releases: [${{ github.event.client_payload.tag }}](https://github.com/morning-night-guild/platform-app/releases/tag/${{ github.event.client_payload.tag }})"
+          url=$(gh pr create --base main --title "Release ${{ github.event.client_payload.tag }}" --body "${body}" --label release)
           echo "url=${url}" >> $GITHUB_OUTPUT
       - name: Notice slack
         run: |
-          curl -X POST -H 'Content-type: application/json' --data "{\"text\": \"<!channel>\n\nリリース<${{ steps.create-release-pr.outputs.url }}|PR>が作成されたよ♪\"}" ${{ secrets.SLACK_WEBHOOKS_URL }}
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\": \"<!channel>\n\nリリース<${{ steps.create-release-pr.outputs.url }}|PR>が作成されたよ♪\n\nReleases: <https://github.com/morning-night-guild/platform-app/releases/tag/${{ github.event.client_payload.tag }}|${{ github.event.client_payload.tag }}>\"}" ${{ secrets.SLACK_WEBHOOKS_URL_GITHUB }}
