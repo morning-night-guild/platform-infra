@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Install okteto
         run: curl https://get.okteto.com -sSfL | sh
-      - name: Okteto login
-        run: okteto login --token ${{ secrets.OKTETO_TOKEN }}
-      - name: Okteto deploy
+      - name: Context okteto
+        run: okteto context use https://cloud.okteto.com --token ${{ secrets.OKTETO_TOKEN }}
+      - name: Deploy okteto
         run: okteto deploy --namespace morning-night-dreamer
