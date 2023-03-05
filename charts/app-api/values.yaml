@@ -6,4 +6,4 @@ image:
   repository: platform-app-api
   tag: 2023-03-04-16-24-21
 # cors
-cors_allow_origins: https://platform-lovat.vercel.app
+cors_allow_origins: https://morning-night-guild-platform-web.vercel.app/
