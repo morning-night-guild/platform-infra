@@ -14,7 +14,7 @@ jobs:
         uses: aquaproj/aqua-installer@v2.0.2
         with:
           aqua_version: v1.33.0
-      - name: Setup tool
-        run: ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua i
+      - name: Install yamlfmt
+        run: ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua install -t yamlfmt
       - name: Yaml format lint
         run: yamlfmt -lint
