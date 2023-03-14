@@ -24,6 +24,9 @@ jobs:
       - name: Update manifest
         run: |
           for chart in $(find charts -mindepth 1 -maxdepth 1 -type d) ; do
+            if [[ "${chart}" == "charts/secret" ]] ; then
+              continue
+            fi
             yq '.image.tag=env(TAG)' ${chart}/values.yaml > ${chart}/values.yaml.tmp && mv ${chart}/values.yaml.tmp ${chart}/values.yaml;
           done
       - name: Checkout branch
