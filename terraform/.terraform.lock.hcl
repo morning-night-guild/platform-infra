@@ -23,3 +23,26 @@ provider "registry.terraform.io/cockroachdb/cockroach" {
     "zh:f569b65999264a9416862bca5cd2a6177d94ccb0424f3a4ef424428912b9cb3c",
   ]
 }
+
+provider "registry.terraform.io/yugabyte/ybm" {
+  version     = "1.0.0"
+  constraints = "1.0.0"
+  hashes = [
+    "h1:LRjJ64KQUnQfnqsAx+ExzCMXd2tseKok1KV24huJzyM=",
+    "zh:156cce0e8cab9bd4c74fb5b9f8062403e192aa7d889a0d6e7304cd4052c40cad",
+    "zh:1f8146b0146f7e991e22897ae68b95ec3995320804000bd4c1a7f3c08a2cbad6",
+    "zh:2ad1bbd3a2f53c6b5bcacbc006053f58c7c03f04c1a87888e82b6b86091fbab4",
+    "zh:2c52af4cabc04537d367e65a2269859d4900e17f323fddcdd963f40d18640de2",
+    "zh:31eab19aceb655cf032cd889e824ad88d0687927a5ef5b60e16d5acdfa96bb4d",
+    "zh:3db3869fa67f648ba5c42433589ca6a4f46dc34436249405e548506e0cb81cb1",
+    "zh:60998f635a9f71a39ac730d1807ebc874bde990fd9003a4710cea79598e6ad48",
+    "zh:878f93fc0a80232968a56026a0cfdf37f1d44f66e993607129b01d161b70c85f",
+    "zh:890df766e9b839623b1f0437355032a3c006226a6c200cd911e15ee1a9014e9f",
+    "zh:9483d18f25decb6007a61bfc8bdac8a6bd6c1ba9f2d0bdfe978ef6f9ddcfa387",
+    "zh:a5380fdebdfcff0a47464a900dbba48303b879481a3efeedc7eaeeea6cb97a28",
+    "zh:d028cef6a2b77b4b9b5d6f5b9f67ff45eafe39b0b0222a56b6133d8677c97a1c",
+    "zh:d96be5392887a8cabd6073f2cb29f6b487a479dde1b7860bc6e17299098a4e3d",
+    "zh:ed7620fbc755b4ccc1645547d971700cd4c88dc3122321c0cfde01033d3af063",
+    "zh:f678bf3eda87ef9e30e6e5cadd53c54b97bf7018af948605f25898e1ce38d2a0",
+  ]
+}
