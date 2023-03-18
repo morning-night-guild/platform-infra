@@ -55,7 +55,3 @@ tfmt: ## Terraform format
 tflint: ## Terraform format check and terraform validate
 	@terraform fmt -recursive -check
 	@terraform validate
-
-.PHONY: tfdev
-tfdev: ## Make terraform develop backend.tf
-	@(cd terraform && ENV=dev envsubst '$$ENV' < backend.tf.template > backend.tf)

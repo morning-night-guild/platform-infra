@@ -10,24 +10,12 @@ variable "serverless_spend_limit" {
   default  = 0
 }
 
-variable "cloud_provider" {
-  type     = string
-  nullable = false
-  default  = "GCP"
-}
-
-variable "cloud_provider_regions" {
-  type     = list(string)
-  nullable = false
-  default  = ["asia-southeast1"]
-}
-
 provider "cockroach" {
   # export COCKROACH_API_KEY with the cockroach cloud API Key
 }
 
 resource "cockroach_cluster" "cockroach_db" {
-  name           = "platform-${var.env}"
+  name           = var.name
   cloud_provider = var.cloud_provider
   serverless = {
     spend_limit = var.serverless_spend_limit
@@ -37,6 +25,6 @@ resource "cockroach_cluster" "cockroach_db" {
 
 resource "cockroach_sql_user" "cockroach_db_user" {
   id       = cockroach_cluster.cockroach_db.id
-  name     = "platform-${var.env}"
+  name     = var.name
   password = var.sql_user_password
 }
