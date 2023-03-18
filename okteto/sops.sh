@@ -12,6 +12,6 @@ mv sops-v${SOPS_VERSION}.linux.amd64 sops
 
 chmod +x sops
 
-for secret in $(find secret | grep yaml) ; do
+for secret in $(find charts/secret/templates | grep yaml) ; do
     ./sops --decrypt --in-place ${secret}
 done
