@@ -23,12 +23,9 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
       - name: Update manifest
         run: |
-          for chart in $(find charts -mindepth 1 -maxdepth 1 -type d) ; do
-            if [[ "${chart}" == "charts/secret" ]] ; then
-              continue
-            fi
-            yq '.image.tag=env(TAG)' ${chart}/values.yaml > ${chart}/values.yaml.tmp && mv ${chart}/values.yaml.tmp ${chart}/values.yaml;
-          done
+          yq '.image.tag=env(TAG)' charts/app-api/values.yaml > charts/app-api/values.yaml.tmp && mv charts/app-api/values.yaml.tmp charts/app-api/values.yaml;
+          yq '.image.tag=env(TAG)' charts/app-core/values.yaml > charts/app-core/values.yaml.tmp && mv charts/app-core/values.yaml.tmp charts/app-core/values.yaml;
+          yq '.image.tag=env(TAG)' charts/database/values.yaml > charts/database/values.yaml.tmp && mv charts/database/values.yaml.tmp charts/database/values.yaml;
       - name: Checkout branch
         run: |
           git branch ${{ env.BRANCH_NAME }}
