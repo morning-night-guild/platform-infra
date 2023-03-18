@@ -6,7 +6,6 @@ on:
       - .github/workflows/terraform.lint.yaml
       - '**.tf'
       - '**.hcl'
-      - '**.template'
 jobs:
   lint:
     runs-on: ubuntu-22.04
