@@ -6,6 +6,8 @@ on:
       - .github/workflows/terraform.lint.yaml
       - '**.tf'
       - '**.hcl'
+env:
+  TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_CLOUD_API_TOKEN }}
 jobs:
   lint:
     runs-on: ubuntu-22.04
