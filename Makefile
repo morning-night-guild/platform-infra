@@ -39,6 +39,10 @@ encrypt: ## Encrypt kubernates secret. ex) make encrypt secret=password
 decrypt: ## Decrypt kubernates secret. ex) make decrypt secret=password
 	@script/decrypt.sh ${secret}
 
+.PHONY: sops
+sops: ## Operation check of sops. The result is output under tmp.
+	@script/sops.sh
+
 .PHONY: tfinit
 tfinit: ## Terraform initialize
 	@(cd terraform && terraform init)
