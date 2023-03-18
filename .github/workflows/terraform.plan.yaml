@@ -9,7 +9,9 @@ on:
 env:
   COCKROACH_API_KEY: ${{ secrets.COCKROACH_API_KEY }}
   TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_CLOUD_API_TOKEN }}
-  TF_VAR_sql_user_password: ${{ secrets.COCKROACH_SQL_USER_PASSWORD }}
+  TF_VAR_cockroach_sql_user_password: ${{ secrets.COCKROACH_SQL_USER_PASSWORD }}
+  TF_VAR_yugabyte_auth_token: ${{ secrets.YUGABYTE_AUTH_TOKEN }}
+  TF_VAR_yugabyte_user_password: ${{ secrets.YUGABYTE_SQL_USER_PASSWORD }}
 jobs:
   plan:
     runs-on: ubuntu-22.04

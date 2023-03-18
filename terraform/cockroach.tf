@@ -1,4 +1,4 @@
-variable "sql_user_password" {
+variable "cockroach_sql_user_password" {
   type      = string
   nullable  = false
   sensitive = true
@@ -26,5 +26,5 @@ resource "cockroach_cluster" "cockroach_db" {
 resource "cockroach_sql_user" "cockroach_db_user" {
   id       = cockroach_cluster.cockroach_db.id
   name     = var.name
-  password = var.sql_user_password
+  password = var.cockroach_sql_user_password
 }
