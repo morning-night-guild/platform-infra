@@ -1,0 +1,10 @@
+# environment
+env: prod
+# container image
+image:
+  organization: morningnightguild
+  tag: latest
+  migrate:
+    repository: platform-db-migrate
+  backup:
+    repository: platform-db-backup
