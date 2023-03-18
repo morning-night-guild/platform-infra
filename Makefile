@@ -28,16 +28,16 @@ key: ## Generate key
 	@age-keygen
 
 .PHONY: secret
-secret: ## Create kubernates secret yaml. ex) make secret env=dev secret=password
-	@secret/secret.sh ${env} ${secret}
+secret: ## Create kubernates secret yaml. ex) make secret secret=password
+	@script/secret.sh ${secret}
 
 .PHONY: encrypt
-encrypt: ## Encrypt kubernates secret. ex) make encrypt env=dev secret=password
-	@secret/encrypt.sh ${env} ${secret}
+encrypt: ## Encrypt kubernates secret. ex) make encrypt secret=password
+	@script/encrypt.sh ${secret}
 
 .PHONY: decrypt
-decrypt: ## Decrypt kubernates secret. ex) make decrypt env=dev secret=password
-	@secret/decrypt.sh ${env} ${secret}
+decrypt: ## Decrypt kubernates secret. ex) make decrypt secret=password
+	@script/decrypt.sh ${secret}
 
 .PHONY: tfinit
 tfinit: ## Terraform initialize
