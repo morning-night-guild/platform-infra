@@ -1,9 +1,9 @@
-name: manifest update prod
+name: manifest update
 run-name: ${{ github.ref_name }} by @${{ github.actor }} ${{ github.workflow }}
 on:
   repository_dispatch:
     types:
-      - manifest-update-prod
+      - manifest-update
 env:
   TAG: ${{ github.event.client_payload.tag }}
   BRANCH_NAME: release/${{ github.event.client_payload.tag }}
