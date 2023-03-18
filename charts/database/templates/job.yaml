@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: platform-db-migrate
+spec:
+  template:
+    spec:
+      containers:
+        - name: platform-db-migrate
+          image: "{{ .Values.image.organization }}/{{ .Values.image.migrate.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: platform-secret-cockroach-db-url
+                  key: cockroach-db-url
+      restartPolicy: Never
+  backoffLimit: 0

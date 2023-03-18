@@ -17,15 +17,23 @@ jobs:
           aqua_version: v1.33.0
       - name: Install yq
         run: ${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua install -t yq
-      - name: Docker pull
+      - name: Docker pull app api
         run: |
-          for chart in $(find charts -mindepth 1 -maxdepth 1 -type d) ; do
-            if [[ "${chart}" == "charts/secret" ]] ; then
-              continue
-            fi
-            echo "${chart}"
-            organization=$(yq '.image.organization' ${chart}/values.yaml)
-            repository=$(yq '.image.repository' ${chart}/values.yaml)
-            tag=$(yq '.image.tag' ${chart}/values.yaml)
-            docker pull ${organization}/${repository}:${tag}
-          done
+          organization=$(yq '.image.organization' charts/app-api/values.yaml)
+          repository=$(yq '.image.repository' charts/app-api/values.yaml)
+          tag=$(yq '.image.tag' charts/app-api/values.yaml)
+          docker pull ${organization}/${repository}:${tag}
+      - name: Docker pull app core
+        run: |
+          organization=$(yq '.image.organization' charts/app-core/values.yaml)
+          repository=$(yq '.image.repository' charts/app-core/values.yaml)
+          tag=$(yq '.image.tag' charts/app-core/values.yaml)
+          docker pull ${organization}/${repository}:${tag}
+      - name: Docker database pull
+        run: |
+          organization=$(yq '.image.organization' charts/database/values.yaml)
+          tag=$(yq '.image.tag' charts/database/values.yaml)
+          migrate=$(yq '.image.migrate.repository' charts/database/values.yaml)
+          docker pull ${organization}/${migrate}:${tag}
+          backup=$(yq '.image.backup.repository' charts/database/values.yaml)
+          docker pull ${organization}/${backup}:${tag}
