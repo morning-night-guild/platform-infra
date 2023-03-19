@@ -16,11 +16,11 @@ spec:
                 - name: PRIMARY_DATABASE_URL
                   valueFrom:
                     secretKeyRef:
-                      name: platform-secret-cockroach-db-url
-                      key: cockroach-db-url
+                      name: platform-secret-yugabyte-db-url
+                      key: yugabyte-db-url
                 - name: SECONDARY_DATABASE_URL
                   valueFrom:
                     secretKeyRef:
-                      name: platform-secret-yugabyte-db-url
-                      key: yugabyte-db-url
+                      name: platform-secret-cockroach-db-url
+                      key: cockroach-db-url
           restartPolicy: Never
