@@ -33,12 +33,39 @@ spec:
                 secretKeyRef:
                   name: platform-secret-api-key
                   key: api-key
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: platform-secret-jwt-secret
+                  key: jwt-secret
             - name: CORS_ALLOW_ORIGINS
               value: "{{ .Values.cors_allow_origins }}"
             - name: NEWRELIC_APP_NAME
               value: ""
             - name: NEWRELIC_LICENSE
               value: ""
+            - name: COOKIE_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: platform-secret-app-api-domain
+                  key: app-api-domain
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: platform-secret-upstash-redis-url
+                  key: upstash-redis-url
+            - name: FIREBASE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: platform-secret-firebase-api-key
+                  key: firebase-api-key
+            - name: FIREBASE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: platform-secret-firebase-secret
+                  key: firebase-secret
+            - name: FIREBASE_API_ENDPOINT
+              value: https://identitytoolkit.googleapis.com
           resources:
             limits:
               cpu: "1"
