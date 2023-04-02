@@ -66,6 +66,12 @@ spec:
                   key: firebase-secret
             - name: FIREBASE_API_ENDPOINT
               value: https://identitytoolkit.googleapis.com
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
           resources:
             limits:
               cpu: "1"
