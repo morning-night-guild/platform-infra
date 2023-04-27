@@ -6,7 +6,7 @@ terraform {
     }
     ybm = {
       source  = "yugabyte/ybm"
-      version = "1.0.0"
+      version = "1.0.2"
     }
     upstash = {
       source  = "upstash/upstash"
