@@ -8,6 +8,7 @@ on:
       - '**.hcl'
 env:
   SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+  TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_CLOUD_API_TOKEN }}
 jobs:
   plan:
     runs-on: ubuntu-22.04
