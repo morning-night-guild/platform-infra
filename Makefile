@@ -35,3 +35,23 @@ tfmt: ## Terraform format
 tflint: ## Terraform format check and terraform validate
 	@terraform fmt -recursive -check
 	@terraform validate
+
+.PHONY: tfkey
+tfkey: ## Generate key for sops
+	@age-keygen
+
+.PHONY: tfsecret
+tfsecret: ## Create terraform secret yaml. ex) make secret secret=password
+	@script/tfsecret.sh ${secret}
+
+.PHONY: tfencrypt
+tfencrypt: ## Encrypt terraform secret. ex) make encrypt secret=password
+	@script/tfencrypt.sh ${secret}
+
+.PHONY: tfdecrypt
+tfdecrypt: ## Decrypt terraform secret. ex) make decrypt secret=password
+	@script/tfdecrypt.sh ${secret}
+
+.PHONY: tfsops
+tfsops: ## Operation check of sops. The result is output under tmp.
+	@script/tfsops.sh

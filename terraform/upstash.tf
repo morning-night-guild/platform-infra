@@ -1,18 +1,6 @@
-variable "upstash_email" {
-  type      = string
-  nullable  = false
-  sensitive = true
-}
-
-variable "upstash_api_key" {
-  type      = string
-  nullable  = false
-  sensitive = true
-}
-
 provider "upstash" {
-  email   = var.upstash_email
-  api_key = var.upstash_api_key
+  email   = data.sops_file.upstash_email.data["data"]
+  api_key = data.sops_file.upstash_api_key.data["data"]
 }
 
 resource "upstash_redis_database" "redis" {

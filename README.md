@@ -2,7 +2,7 @@
 
 ## initialize
 
-```bash
+```shell
 make tool
 ```
 
@@ -11,7 +11,7 @@ make tool
 ## initialize project
 
 1. generate key  
-    ```bash
+    ```shell
     make key
     ```
 1. set `public key` to `key` in `script/encrypt.sh`  
@@ -40,12 +40,12 @@ helm create <app-name>
 
 ## Setup Local PC
 
-```bash
+```shell
 brew tap hashicorp/tap
 brew install hashicorp/tap/terraform
 ```
 
-```bash
+```shell
 brew install gettext
 ```
 
@@ -56,10 +56,49 @@ brew install gettext
 TF_TOKEN_app_terraform_io=*********
 ```
 
-```bash
-make tfdev
+```shell
 make tfinit
 ```
+
+## Initialize SOPS (Secrets)
+
+1. generate key
+    ```shell
+    make tfkey
+    ```
+1. set `public key` to `key` in `script/tfencrypt.sh`  
+1. set `private key` to `SOPS_AGE_KEY` in `Settings` > `Secrets and variables` > `Actions` > `New repository secret` in `GitHub`
+
+## Add new secret
+
+1. execute `make tfsecret secret=${secret}`  
+    ex)
+    ```shell
+    make tfsecret secret=password
+    ```
+1. set in the secret value in `terraform/sops/${secret}.in.txt`
+1. execute `make tfencrypt secret=${secret}`  
+    ex)
+    ```shell
+    make tfencrypt secret=password
+    ```
+
+## Change secret
+
+1. change `terraform/sops/${secret}.in.txt`
+1. execute `make tfencrypt secret=${secret}`  
+    ex)
+    ```shell
+    make tfencrypt secret=password
+    ```
+
+## Confirm secret value
+1. execute `make tfdecrypt secret=${secret}`  
+    ex)
+    ```shell
+    make tfdecrypt secret=password
+    ```
+1. confirm `terraform/sops/${secret}.out.txt`
 
 ## Q&A
 
