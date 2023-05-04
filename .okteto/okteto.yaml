@@ -1,0 +1,3 @@
+# https://www.okteto.com/docs/cloud/okteto-cli/
+deploy:
+  - sh .okteto/okteto.sh
