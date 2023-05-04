@@ -1,9 +1,3 @@
-variable "cockroach_sql_user_password" {
-  type      = string
-  nullable  = false
-  sensitive = true
-}
-
 variable "serverless_spend_limit" {
   type     = number
   nullable = false
