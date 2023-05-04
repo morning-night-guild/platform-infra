@@ -11,7 +11,7 @@ variable "serverless_spend_limit" {
 }
 
 provider "cockroach" {
-  # export COCKROACH_API_KEY with the cockroach cloud API Key
+  apikey = data.sops_file.cockroach_api_key.data["data"]
 }
 
 resource "cockroach_cluster" "cockroach_db" {
@@ -26,5 +26,5 @@ resource "cockroach_cluster" "cockroach_db" {
 resource "cockroach_sql_user" "cockroach_db_user" {
   id       = cockroach_cluster.cockroach_db.id
   name     = var.name
-  password = var.cockroach_sql_user_password
+  password = data.sops_file.cockroach_sql_user_password.data["data"]
 }

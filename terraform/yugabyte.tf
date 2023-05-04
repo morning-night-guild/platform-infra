@@ -1,20 +1,7 @@
-variable "yugabyte_auth_token" {
-  description = "The authentication token."
-  type        = string
-  nullable    = false
-  sensitive   = true
-}
-
-variable "yugabyte_sql_user_password" {
-  type      = string
-  nullable  = false
-  sensitive = true
-}
-
 provider "ybm" {
   host            = "cloud.yugabyte.com"
   use_secure_host = false
-  auth_token      = var.yugabyte_auth_token
+  auth_token      = data.sops_file.yugabyte_auth_token.data["data"]
 }
 
 resource "ybm_allow_list" "ybm_allow_list" {
@@ -41,6 +28,6 @@ resource "ybm_cluster" "single_region_cluster" {
   }
   credentials = {
     username = var.name
-    password = var.yugabyte_sql_user_password
+    password = data.sops_file.yugabyte_sql_user_password.data["data"]
   }
 }
