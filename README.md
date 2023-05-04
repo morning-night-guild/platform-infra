@@ -28,50 +28,6 @@ make tool
 helm create <app-name>
 ```
 
-## add secret manifest
-
-1. execute `make secret chart=${chart} secret=${secret}`  
-    ex)
-    ```bash
-    make secret chart=app secret=password
-    ```
-1. set in the secret value in `charts/${chart}/templates/secret/${secret}.in.txt`
-1. execute `make encrypt chart=${chart} secret=${secret}`  
-    ex)
-    ```bash
-    make encrypt chart=app secret=password
-    ```
-
-## change secret
-
-1. change `charts/${chart}/templates/secret/${secret}.in.txt`
-1. execute `make encrypt chart=${chart} secret=${secret}`  
-    ex)
-    ```bash
-    make encrypt chart=app secret=password
-    ```
-
-## change secret
-
-1. set in the secret value in `charts/${chart}/templates/secret/${secret}.in.txt`
-1. execute `make encrypt chart=${chart} secret=${secret}`  
-    ex)
-    ```bash
-    make encrypt chart=app secret=password
-    ```
-
-## confirm secret @Local
-1. secret key in `.secret.env`
-    ```bash
-    SOPS_AGE_KEY=xxx
-    ```
-1. execute `make decrypt chart=${chart} secret=${secret}`  
-    ex)  
-    ```bash
-    make decrypt chart=app secret=password
-    ```
-1. confirm `charts/${chart}/templates/secret/${secret}.out.txt`
-
 # platform-terraform
 
 ## Terraform Cloud Workspaces Initialize

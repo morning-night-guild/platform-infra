@@ -23,26 +23,6 @@ helmlint: ## Lint helm chart
 chart: ## Create helm chart. ex) make chart chart=app
 	@(cd charts && helm create ${chart})
 
-.PHONY: key
-key: ## Generate key
-	@age-keygen
-
-.PHONY: secret
-secret: ## Create kubernates secret yaml. ex) make secret secret=password
-	@script/secret.sh ${secret}
-
-.PHONY: encrypt
-encrypt: ## Encrypt kubernates secret. ex) make encrypt secret=password
-	@script/encrypt.sh ${secret}
-
-.PHONY: decrypt
-decrypt: ## Decrypt kubernates secret. ex) make decrypt secret=password
-	@script/decrypt.sh ${secret}
-
-.PHONY: sops
-sops: ## Operation check of sops. The result is output under tmp.
-	@script/sops.sh
-
 .PHONY: tfinit
 tfinit: ## Terraform initialize
 	@(cd terraform && terraform init)

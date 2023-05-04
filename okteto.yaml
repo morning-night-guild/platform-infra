@@ -1,3 +1,0 @@
-deploy:
-  - sh okteto/sops.sh
-  - sh okteto/helm.sh
