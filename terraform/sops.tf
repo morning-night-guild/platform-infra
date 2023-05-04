@@ -1,7 +1,7 @@
 provider "sops" {}
 
 data "sops_file" "cockroach_api_key" {
-    source_file = "sops/cockroach-api-key.enc.json"
+  source_file = "sops/cockroach-api-key.enc.json"
 }
 
 data "sops_file" "cockroach_sql_user_password" {
