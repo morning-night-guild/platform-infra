@@ -4,4 +4,4 @@ env: prod
 image:
   organization: morningnightguild
   repository: platform-app-core
-  tag: 2023-05-27-13-13-05
+  tag: 2023-05-27-14-10-30
