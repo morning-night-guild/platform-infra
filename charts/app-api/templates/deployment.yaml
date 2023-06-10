@@ -66,6 +66,13 @@ spec:
                   key: firebase-secret
             - name: FIREBASE_API_ENDPOINT
               value: https://identitytoolkit.googleapis.com
+            - name: RESEND_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: platform-secret-resend-api-key
+                  key: resend-api-key
+            - name: RESEND_SENDER
+              value: noreply@resend.dev
           livenessProbe:
             httpGet:
               path: /health
