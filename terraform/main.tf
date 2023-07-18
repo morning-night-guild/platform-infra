@@ -6,7 +6,7 @@ terraform {
     }
     cockroach = {
       source  = "cockroachdb/cockroach"
-      version = "0.2.0"
+      version = "0.7.0"
     }
     ybm = {
       source  = "yugabyte/ybm"
