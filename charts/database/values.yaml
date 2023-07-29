@@ -3,7 +3,7 @@ env: prod
 # container image
 image:
   organization: morningnightguild
-  tag: 2023-07-15-13-18-08
+  tag: 2023-07-29-13-12-50
   migrate:
     repository: platform-db-migrate
   backup:
